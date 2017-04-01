@@ -1,0 +1,17 @@
+%YAML 1.2
+---
+name: TLA+
+file_extensions: [tla]
+scope: source.tla
+
+contexts:
+  main:
+    - match: \b(MODULE|CONSTANTS|ASSUME)\b
+      scope: keyword.reserved.tla
+    - match: '\\\*'
+      set: comment
+  comment:
+    - meta_scope: comment.tla
+    - match: $
+      pop: true
+
