@@ -19,8 +19,3 @@ ASSUME \A p,d,miOld,miNew : /\ Send(p,d,miOld,miNew) \in BOOLEAN
 MReq == [op:{"Rd"}, adr:Adr] \union [op:{"Wr"}, adr:Adr, val:Val]                            
 
 NoVal == CHOOSE v : v \notin Val
-
-
-
-
-

@@ -6,12 +6,26 @@ scope: source.tla
 
 contexts:
   main:
-    - match: \b(MODULE|CONSTANTS|ASSUME)\b
+    - match: '\b(MODULE|VARIABLE|VARIABLES|CONSTANT|CONSTANTS|ASSUME|CHOOSE|BOOLEAN|THEOREM|EXTENDS|EXCEPT|UNCHANGED|INSTANCE|WITH|IF|THEN|ELSE|in|notin|union)\b'
       scope: keyword.reserved.tla
     - match: '\\\*'
-      set: comment
+      push: comment
+    - match: '"'
+      push: double_quoted_string
+    - match: \b(\\A|\\in)\b
+      push: operator
+  operator:
+    - match: \b(union|in)\b
+      scope: operator.a.tla
+    - meta_scope: operator.ascii.tla
+    - match: \s
+      pop: true 
+  double_quoted_string:
+    - meta_scope: string.quoted.double.tla
+    - match: '"'
+      pop: true
   comment:
     - meta_scope: comment.tla
+    - match: '\\\*'
     - match: $
       pop: true
-
